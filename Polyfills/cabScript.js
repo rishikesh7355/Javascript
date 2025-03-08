@@ -26,14 +26,35 @@
 
 // ******************************** apply ********************************* // 
 
-Function.prototype.myApply = function(context={}, args=[]) {
-      if(typeof this !== 'function'){
-         throw new Error (this + 'it is not callable');
-      }
-      if(!Array.isArray(args)  ){
-         throw new TypeError("CreatedListFromArrayLike called on non-object")
-      }
-      context.fn = this;
-      context.fn(...args);
+// Function.prototype.myApply = function(context={}, args=[]) {
+//       if(typeof this !== 'function'){
+//          throw new Error (this + 'it is not callable');
+//       }
+//       if(!Array.isArray(args)  ){
+//          throw new TypeError("CreatedListFromArrayLike called on non-object")
+//       }
+//       context.fn = this;
+//       context.fn(...args);
+// }
+// dummyFunction.apply(obj,[4]);
+
+
+// ****************************** bind *************************************//
+
+// const newFunc = dummyFunction.bind(obj); // provide arguments here 
+// console.log(newFunc()); // or can provide arguments here also
+
+Function.prototype.myBind = function(context = {}, ...args){
+   if(typeof this !== 'function') {
+      throw new Error(this + 'cannot be bound as it is not callable');
+   }
+   context.fn =this;
+   //return new function
+   return function (...newArgs){
+      // newArgs because arguments can be paased along with newfunc also like check(3)
+      return context.fn(...args, ...newArgs);
+   }
 }
-dummyFunction.apply(obj,[4]);
+
+const check = dummyFunction.myBind(obj,3);
+console.log(check())
