@@ -51,7 +51,7 @@ Function.prototype.myBind = function(context = {}, ...args){
    context.fn =this;
    //return new function
    return function (...newArgs){
-      // newArgs because arguments can be paased along with newfunc also like check(3)
+      // extra  newArgs because arguments can be paased along with newfunc also like check(3)
       return context.fn(...args, ...newArgs);
    }
 }
