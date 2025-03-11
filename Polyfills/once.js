@@ -11,12 +11,17 @@ dummy('warning');
 
 function once(func, context) {
     let ran;
-    if(func){
-        ran = func.apply(context || this, arguments);
-        func=null
-    }
-    return ran;
+    return function() {
+        if(func){
+            ran = func.apply(context || this, arguments);
+            func=null
+        }
+        return ran;
+}
 }
 
-const ans = once(dummy('Warning'));
-ans('Warning');
+const ans = once(dummy('hello'));
+ans('hello')
+ans('hello')
+ans('hello')
+ans('hello')
